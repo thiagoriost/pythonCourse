@@ -145,8 +145,20 @@ urlpatterns = [
 
 ejecutar el server como en el # 7
 
-# 10 create folder templates
-en my_first_app, crear carpeta templates/[nobreDeLaApp]/[nombre archivo html de la vista]
-ejemplo: my_first_project\my_first_app\templates\my_fisrt_app\car_list.html
-
-
+# Instar tool para documentar la api NO FUNCIONO
+1. pip install setuptools
+2. pip install coreapi
+3. set settings.py
+        INSTALLED_APPS = [
+            'django.contrib.admin',
+            'django.contrib.auth',
+            'django.contrib.contenttypes',
+            'django.contrib.sessions',
+            'django.contrib.messages',
+            'django.contrib.staticfiles',
+            'corsheaders',
+            'rest_framework', 
+            'coreapi',
+            'my_task_app',
+        ]
+4. agregar paths en urlpatterns
