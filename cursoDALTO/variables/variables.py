@@ -13,5 +13,9 @@ print("Rigo" in mensaje) #retorna un boolean
 print("Rigo" not in mensaje) #retorna un boolean
 
 # con del se puede borrar una variable
-del mensaje
+# del mensaje
 print(mensaje)
+print(mensaje[0])
+
+name = input("Ingresa nombre:  ")
+print(name)
