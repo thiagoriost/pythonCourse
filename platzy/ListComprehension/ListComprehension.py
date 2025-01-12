@@ -1,3 +1,9 @@
+""" List comprehension
+resultado = [ecuacion_a_aplicar_sobre_cada_lemento for e in my_lista filtro(opcional)]
+
+ejemplo =  [i*2 for i in range(1,101) if i % 2 == 0]
+"""
+
 # imprime los cuadros de una lista de numeros del 1 al 5
 
 print([x**2 for x in list(range(1,6))])
@@ -29,3 +35,14 @@ lista = [
 print(lista_empleados(lista, 25000))
 
 print("--------------------------------------")
+
+number = []
+for e in range(1, 11):
+    number.append(e * 2)
+    
+print(number)
+number2 = [e * 2  for e in range(1,11)]
+print(number2)
+
+ejemplo =  [i*2 for i in range(1,101) if i % 2 == 0]
+print(ejemplo)
