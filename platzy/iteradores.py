@@ -6,6 +6,7 @@ print(my_list)
 my_iter = iter(my_list)
 print(next(my_iter))
 print(next(my_iter))
+print(next(my_iter))
 #  ...
 print("////////// Iterar en cadena //////////")
 text = "hola mundo"
