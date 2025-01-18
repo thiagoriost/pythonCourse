@@ -18,10 +18,10 @@ def read_csv(path):
             country_dictionari = {key: value for key, value in iterable}
             # print(country_dictionari)
             data.append(country_dictionari)
-        print('*'*20)
-        print("data => ", data)
-        print('*'*20)
-        print("data[0] => ", data[0])
+        # print('*'*20)
+        # print("data => ", data)
+        # print('*'*20)
+        # print("data[0] => ", data[0])
         return data
 
 
