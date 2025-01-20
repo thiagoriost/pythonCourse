@@ -8,17 +8,29 @@ path = os.getcwd()+r"\platzy\manejoArchivos\csv\world_population.csv"
 
 def run():
     data = world_population_analitic.read_csv(path)
-    country = input("Ingrese pais: ")
+    # country = input("Ingrese pais: ")
     
-    result = utils.population_by_country(data, country) 
+    # result = utils.population_by_country(data, country) 
     
-    if len(result) > 0: 
-        # country = result[0]
-        print("result => ", result)
-        keys, values = utils.get_population(result)
-        print("keys, values => ", keys, values)
-        chart.generate_bar_char(keys, values)
-        return
+    # if len(result) > 0: 
+    #     # country = result[0]
+    #     print("result => ", result)
+    #     keys, values = utils.get_population(result)
+    #     print("keys, values => ", keys, values)
+    #     chart.generate_bar_char(keys, values)
+    #     return
+    
+    # Crear un diccionario con 'Capital' como clave y 'World Population Percentage' como valor
+    filterCOuntries = list(filter(lambda item : item['Continent'] == 'South America', data))
+    capital_population_percentage = {
+        country['Country/Territory']: country['World Population Percentage'] for country in filterCOuntries
+    }
+
+    # Imprimir el resultado
+    # print(capital_population_percentage)
+    keys, values = utils.get_population(capital_population_percentage)
+    print("keys, values => ", keys, values)
+    chart.pie_chart(labels=keys, values=values)
 
 
 

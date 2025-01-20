@@ -49,4 +49,7 @@ def fibonacci(limit):
 
 for e in fibonacci(10):
     print(e)
+    
+a = [1, [2,3,5], 5]
+print("a => ", a)
   
