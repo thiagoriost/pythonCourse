@@ -6,12 +6,29 @@ pip install virtualenv
 
 # 1.2 Crear ambiente virtual
 python -m venv ~/.envs/[nombreFolderDondeGuardaraPaquetesDePython]
-Ejemple_1: python -m venv our_venv
+python -m venv nombre_entorno
+Ejemple_1: cd pl    
 
 
-# 2 Activar entorno virtual => este no es necezario
-oprimir f1 y selecionar python interprete
-y seleccionar el recomendado
+# 2 Activar entorno virtual 
+## - opcion 1:
+    oprimir f1 y selecionar python interprete
+    y seleccionar el recomendado
+## - opcion 2:
+    nombre_entorno\Scripts\activate
+
+# 2.1 desactivar entorno virtual
+deactivate
+
+# 2.3 Validar paquetes instalados en el actual enviroment
+    pip freeze
+
+# 2.2 generar archivo requirements.txt
+ejecutar lo siguiente para generar archivo:
+    pip freeze > requirements.txt
+para ejecutar el requirements.txt se ejcuta lo siguiente
+    pip install -r requirements.txt
+
 
 # 3 instalar django
 pip install Django
