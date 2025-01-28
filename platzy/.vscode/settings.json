@@ -1,0 +1,9 @@
+{
+    "python.testing.unittestArgs": [
+        "-v",
+        "-s",
+        "./unitTesting",
+        "-p",
+        "test_*.py"
+    ]
+}

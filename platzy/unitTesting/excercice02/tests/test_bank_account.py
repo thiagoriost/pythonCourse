@@ -1,6 +1,7 @@
 import unittest, os
 
-from bank_account import BankAccount
+# from bank_account import BankAccount
+from bank_account import BankAccount  # Ajusta la ruta relativa correctamente
 
 class BankAccountTests(unittest.TestCase):
 
@@ -19,25 +20,25 @@ class BankAccountTests(unittest.TestCase):
         
     def test_deposit(self):
         new_balance = self.account.deposit(500)
-        assert new_balance == 1500
+        self.assertEqual(new_balance, 1500, "Opcional La comparacion no coincide")
 
     def test_withdraw(self):
         new_balance = self.account.withdraw(200)
-        assert new_balance == 800
+        self.assertEqual(new_balance, 800, "Opcional La comparacion no coincide")
     
     def test_get_balance(self):
-        assert self.account.get_balance() == 1000
+        self.assertEqual(self.account.get_balance(), 1000, "Opcional La comparacion no coincide")
         
     def test_do_transfer_1(self):
-        assert self.account.do_transfer(300) == 700
+        self.assertEqual(self.account.do_transfer(300), 700, "Opcional La comparacion no coincide")
         
     def test_do_transfer_2(self):
-        assert self.account.do_transfer(1000) == 0
+        self.assertEqual(self.account.do_transfer(1000), 0, "Opcional La comparacion no coincide")
         
     def test_successful_transfer(self):
         """Prueba una transferencia exitosa."""
         self.account.do_transfer(50)
-        self.assertEqual(self.account.balance, 950)
+        self.assertEqual(self.account.balance, 950, "La comparacion no coincide")
 
     def test_insufficient_funds(self):
         # Prueba una transferencia con fondos insuficientes.
@@ -53,7 +54,7 @@ class BankAccountTests(unittest.TestCase):
         
     def test_transaction_log(self):
        self.account.deposit(500)
-       assert os.path.exists("transaction_log.txt")
+       self.assertTrue(os.path.exists("transaction_log.txt"))
        
     def test_count_transactions(self)       :
         assert self._count_lines(self.account.log_file) == 1
