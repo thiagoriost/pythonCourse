@@ -1,7 +1,11 @@
 import unittest, os
-
+from unittest.mock import patch
 # from bank_account import BankAccount
-from bank_account import BankAccount  # Ajusta la ruta relativa correctamente
+from excercice02.bank_account import BankAccount 
+from platzy.unitTesting.exceptions import InsufficientFundsError
+from platzy.unitTesting.excercice02.bank_account import BankAccount
+
+
 
 class BankAccountTests(unittest.TestCase):
 
@@ -60,3 +64,8 @@ class BankAccountTests(unittest.TestCase):
         assert self._count_lines(self.account.log_file) == 1
         self.account.deposit(500)
         assert self._count_lines(self.account.log_file) == 2
+
+    @patch("unitTesting.excercice02.bank_account.datetime")
+    def test_withdraw_during_bussines_hours(self, mock_datetime):
+        mock_datetime.now.return_value.hour = 10
+        self.account.withdraw(100)
