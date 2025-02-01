@@ -101,18 +101,47 @@ CORS_ALLOWED_ORIGINS = [
 ]
 y ajustar a la necesidad
 
-# creacion de tablas
-con RM en la carpeta de la app, buscar el archivo models.py
-- crear el screp q crea las clases que apunta a cada tabla
-- comando q crea el script para las tablas: 
-### python manage.py makemigrations [nombre de la app]
-ej:
-### python manage.py makemigrations my_task_app
-- con lo anterior se creo el codigo q crea la tabla, ahora se debe ejecutar el 
-comando que crea la tabla dentro de dbsqlite3:
-### python manage.py migrate [nombre de la app]
-ej:
-#### python manage.py migrate my_task_app
+# 12.1 creacion de tablas
+    - con lo anterior se creo el codigo q crea la tabla, ahora se debe ejecutar el 
+    comando que crea la tabla dentro de dbsqlite3:
+    python manage.py migrate
+    con RM en la carpeta de la app, buscar el archivo models.py
+    - crear el screp q crea las clases que apunta a cada tabla
+    - comando q crea el script para las tablas, esto basado en las clases dentro de los archivos en app/models: 
+    python manage.py makemigrations
+    revisar el archivo 0001_initial.py
+    E:\software\PYTHON\platzy\Django\my_first_project\app_of_myfirstproyect\migrations\0001_initial.py
+
+# 12.2 Comando para conectarse a la Db y ver las tablas
+1 python manage.py dbshell
+    (con .quit se sale de la DB)
+2 ejectar 
+    2.1 .tables => se ven las tablas en la DB Sqlite
+    2.2 .schema [nombreTablaOseaModelo_extraido_del_paso_anterior]
+    2.3 select * from [nombreTablaOseaModelo_extraido_del_paso_anterior];
+3 Cada vez que se realizan cambios en algun modelo se debe ejecutar
+    3.1 python manage.py makemigrations
+    3.2 python manage.py migrate
+
+# 12.3 Modificar datos de la DB
+
+## NOTA: abrir dos terminales cmd o commans promp
+    en una ejecutar el python manage.py dbshell => para ver tablas, schemas, select, etc
+    y en la otra terminal ejecutar python manage.py shell para interactuar con la DB osea crud
+
+    python manage.py shell => con lo anterior se ejecuta la terminal de python
+    control + d => para salir de la shell
+
+    from app_of_myfirstproyect.models import Car # importar modelo
+    # con lo siguiente se crea un registro
+    my_car = Car(title="BMW", year="2023", color="Blue") #instanciar modelo o clase enviandole los parametros o campos de la tabla
+    my_car.save() # guardar registro
+
+    my_car.title = "Mazda" # queda en memoria
+    my_car.save() # guardar registro
+
+# 12.4 Relacion entre tablas
+
 
 # 13 crear usuario admin
 para probar lo q se lelva hasta el momento
