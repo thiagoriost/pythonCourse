@@ -134,11 +134,27 @@ y ajustar a la necesidad
 
     from app_of_myfirstproyect.models import Car # importar modelo
     # con lo siguiente se crea un registro
+    my_car?? # muestra info de la clase o modelo
     my_car = Car(title="BMW", year="2023", color="Blue") #instanciar modelo o clase enviandole los parametros o campos de la tabla
     my_car.save() # guardar registro
 
     my_car.title = "Mazda" # queda en memoria
     my_car.save() # guardar registro
+
+    book = Book.objects.first()
+    <!-- book = Book.objects.last() -->
+    book ¬
+
+
+    authors_list = [thiago, Audry]
+    print(authors_list)
+    book.authors.set(authors_list)
+
+    Author.objects.create(name="Vale", bird_date="1985-08-15")
+    Author.objects.all()
+    Author.objects.filter(name="Thiago")
+    Author.objects.filter(name="Audry").delete()
+    Author.objects.all().order_by('name')
 
 # 12.4 Relacion entre tablas
 
