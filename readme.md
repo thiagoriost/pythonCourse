@@ -7,6 +7,7 @@ pip install virtualenv
 # 1.2 Crear ambiente virtual
 python -m venv ~/.envs/[nombreFolderDondeGuardaraPaquetesDePython]
 python -m venv nombre_entorno
+python -m venv coffee_shop_env
 Ejemple_1: cd pl    
 
 
@@ -28,7 +29,8 @@ ejecutar lo siguiente para generar archivo:
     pip freeze > requirements.txt
 para ejecutar el requirements.txt se ejcuta lo siguiente
     pip install -r requirements.txt
-
+y si existe
+    pip install -r requirements-dev.txt
 
 # 3 instalar django
 pip install Django
@@ -37,7 +39,8 @@ pip install Django
 django-admin --help
 
 # 5 crear poyecto
-django-admin startproject [nombre_proyecto] .
+django-admin startproject [nombre_proyecto]
+django-admin startproject coffee_shop_project
 ejem: django-admin startproject my_first_project .
 
 # 6 revisar manage
@@ -48,7 +51,9 @@ python manage.py runserver
 
 # 8 Crear aplicación dentro del proyecto
 - detener server
-python manage.py startapp my_first_app
+python manage.py startapp products_app
+
+# 8.1 Crear Modelos
 
 # 9 Registrar la app
 en settings.py buscar E:\software\PYTHON\my_first_project\my_first_project\settings.py
@@ -224,3 +229,10 @@ ejecutar el server como en el # 7
             'my_task_app',
         ]
 4. agregar paths en urlpatterns
+
+
+# shell
+python manage.py shell
+from django.http import HttpRequest
+request = HttpRequest()
+request.__dict__

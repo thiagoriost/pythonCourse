@@ -1,5 +1,5 @@
 """
-URL configuration for my_first_project project.
+URL configuration for coffee_shop_project project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.1/topics/http/urls/
@@ -14,16 +14,9 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.contrib import admin
 from django.urls import path
 
-from app_of_myfirstproyect.views import car_overview_view, car_view, CarListView
-
-
-
 urlpatterns = [
-    path('listado/', CarListView.as_view()),    
-    path('listado/<int:id>',car_view),
-    path('detalle/<int:id>',car_overview_view),
-    path('marcas/<str:brand>',car_overview_view),
-    path('marcas/<int:id>',car_overview_view)
+    path('admin/', admin.site.urls),
 ]
