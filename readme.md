@@ -26,6 +26,7 @@ deactivate
 
 # 2.2 generar archivo requirements.txt
 ejecutar lo siguiente para generar archivo:
+    lo siguietne no es recomendable por que obliga a instalar las mismas subdependencias, lo ideal es registrar solo el paquete principal y su version correspondiente, x q al instalar el actualizar y correra su subdependencias
     pip freeze > requirements.txt
 para ejecutar el requirements.txt se ejcuta lo siguiente
     pip install -r requirements.txt
@@ -71,6 +72,7 @@ INSTALLED_APPS = [
 
 # 9.1 migrar el proyecto, para crear tablas necesarias para el modelo
 con el siguietne comando
+python manage.py makemigrations
 python manage.py migrate
 ejecutar el paso # 7, para validar la correcta ejecución
 
@@ -165,13 +167,17 @@ y ajustar a la necesidad
 
 
 # 13 crear usuario admin
-para probar lo q se lelva hasta el momento
+para probar lo q se lleva hasta el momento
 ejecutar los siguietnes comandos
 python manage.py createsuperuser
+Username (leave blank to use 'toshiba'): admin
+Email address: admin@admin.com
+Password: admin12345
+Password (again): admin12345
 ejecutar el paso 7
 ingresar a
 http://127.0.0.1:8000/admin/login/?next=/admin/
-y emplear las credenciales creadas "admin_1234"
+y emplear las credenciales creadas
 
 ## Añadir al panel del administrador
 en la carpeta de la app, en admin.py add los siguiente
@@ -236,3 +242,7 @@ python manage.py shell
 from django.http import HttpRequest
 request = HttpRequest()
 request.__dict__
+
+from products_app.models import Product
+Product.objects.first()
+Product.objects.first().__dict__
