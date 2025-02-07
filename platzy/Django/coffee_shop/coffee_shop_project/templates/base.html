@@ -7,9 +7,23 @@
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
 </head>
 <body>
-    <h1 class="text-3xl font-bold underline">Base</h1>
-    <div class="container mx-auto px-4">
-        {% block content %} {% endblock content%}
+    <div style="background-color: #9191b7;">
+        <h1 class="text-3xl font-bold underline">Base</h1>
+        {% if user.is_authenticated %}
+            Hola, {{ user.username }}
+            <form action="{% url "logout" %}" method="post">
+                {% csrf_token %}
+                <button type="submit">Cerrar sesión</button>
+                {% comment %} <a href="{% url 'login' %}">Logout</a> {% endcomment %}
+            </form>
+            {% comment %} <a href="{% url 'logout' %}">Logout</a> {% endcomment %}
+        {% else %}
+            <a href="{% url 'login' %}">Login</a>
+        {% endif %}
+        <h1 class="text-3xl font-bold underline">________________________</h1> 
+        <div class="container mx-auto px-4">
+            {% block content %} {% endblock content %}
+        </div>
     </div>
 </body>
 </html>

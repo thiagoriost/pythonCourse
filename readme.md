@@ -52,7 +52,12 @@ python manage.py runserver
 
 # 8 Crear aplicación dentro del proyecto
 - detener server
-python manage.py startapp products_app
+python manage.py startapp app_oders
+despues de crear la app, se debe 
+- registrar segun # 9 y dentro de la app creada,
+se debe 
+- registar y configurar el archivo urls en la raiz de la app crada,
+- crar modelos basados en clases
 
 # 8.1 Crear Modelos
 
