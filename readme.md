@@ -40,8 +40,8 @@ pip install Django
 django-admin --help
 
 # 5 crear poyecto
-django-admin startproject [nombre_proyecto]
-django-admin startproject coffee_shop_project
+django-admin startproject [nombre_proyecto] .
+django-admin startproject django_crud_api .
 ejem: django-admin startproject my_first_project .
 
 # 6 revisar manage
@@ -52,7 +52,7 @@ python manage.py runserver
 
 # 8 Crear aplicación dentro del proyecto
 - detener server
-python manage.py startapp app_oders
+python manage.py startapp app_tasks
 despues de crear la app, se debe 
 - registrar segun # 9 y dentro de la app creada,
 se debe 
@@ -72,6 +72,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'my_first_app',
 ]
 
@@ -83,7 +84,7 @@ ejecutar el paso # 7, para validar la correcta ejecución
 
 # 10 Django REST framework
 pip install djangorestframework
-- adionanrlo en app como esta en el paso # 9
+- adicionarlo en app como esta en el paso # 9
 
 # 11 instalación modulo para comuicar backend con frontend
 https://pypi.org/project/django-cors-headers/
@@ -105,11 +106,10 @@ MIDDLEWARE = [
 # 12 autorizar quien se debe conectar al servidor
 copiar lo siguiente de https://pypi.org/project/django-cors-headers/
 al final del archivo settings.py 
+
+#autorizacion de cors
 CORS_ALLOWED_ORIGINS = [
-    "https://example.com",
-    "https://sub.example.com",
-    "http://localhost:8080",
-    "http://127.0.0.1:9000",
+   
 ]
 y ajustar a la necesidad
 
@@ -175,8 +175,8 @@ y ajustar a la necesidad
 para probar lo q se lleva hasta el momento
 ejecutar los siguietnes comandos
 python manage.py createsuperuser
-Username (leave blank to use 'toshiba'): admin
-Email address: admin@admin.com
+Username (leave blank to use 'toshiba'): Rigo
+Email address: rigo@rios.com
 Password: admin12345
 Password (again): admin12345
 ejecutar el paso 7
