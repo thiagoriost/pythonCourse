@@ -22,6 +22,7 @@ Ejemple_1: cd pl
 deactivate
 
 # 2.3 Validar paquetes instalados en el actual enviroment
+    pip list
     pip freeze
 
 # 2.2 generar archivo requirements.txt
@@ -224,8 +225,12 @@ urlpatterns = [
 ejecutar el server como en el # 7
 
 # Instar tool para documentar la api NO FUNCIONO
-1. pip install setuptools
-2. pip install coreapi
+1. pip install coreapi
+    1.1 configurar en setting del proyecto, en INSTALLED_APP
+        'coreapi'
+    1.2 en las urls de la app agregar
+        path('docs/', include_docs_urls(title='Documentación de la API')),
+2. pip install setuptools
 3. set settings.py
         INSTALLED_APPS = [
             'django.contrib.admin',
@@ -251,3 +256,16 @@ request.__dict__
 from products_app.models import Product
 Product.objects.first()
 Product.objects.first().__dict__
+
+
+# Crear proyecto con React
+## Crar el proyecto con
+    npm creat vite
+## instalar paquetes de node proyecto React y corre para probar
+    npm install
+    npm run dev
+    detener e instalar lo siguiente:
+        npm i react-router-dom
+        npm i react-hot-toast
+        npm i axios
+        npm react-hook-form
