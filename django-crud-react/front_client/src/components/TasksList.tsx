@@ -18,7 +18,10 @@ const TasksList = () => {
     const load = async () => {
         const response = await getAllTask()
         console.log({response})
-        setTasks(response.data)
+        // Ordenar por la propiedad 'done_2', con false primero
+        const sortedData = response.data.sort((a: { done_2: number; }, b: { done_2: number; }) => a.done_2 - b.done_2);
+        console.log({sortedData})
+        setTasks(sortedData)
       }
 
     useEffect(() => {
