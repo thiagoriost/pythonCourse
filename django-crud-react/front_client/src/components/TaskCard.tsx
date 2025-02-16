@@ -11,12 +11,11 @@ const TaskCard = (task:Task) => {
 
 
   return (
-    <div onClick={() => goEdit(task)} style={{cursor:'pointer', background: task.done_2 ?'#0b270b':'', color:'white', padding:'10px', margin:'10px'}}>
-        <h1>{task.id} - {task.title_2}</h1>
-        <p>{task.description_2}</p>
+    <div onClick={() => goEdit(task)} className="bg-zinc-800 p-3 hover:bg-zinc-700 cursor-pointer">
+        <h1 className="font-bold uppercase">{task.id} - {task.title_2}</h1>
+        <p className="text-slate-400">{task.description_2}</p>
         <h2>Done</h2>
         <input type="checkbox" checked={task.done_2} disabled={true} style={{color:'green'}} name="" id="" />
-        <hr />
     </div>
   )
 }

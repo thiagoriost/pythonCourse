@@ -7,7 +7,7 @@ pip install virtualenv
 # 1.2 Crear ambiente virtual
 python -m venv ~/.envs/[nombreFolderDondeGuardaraPaquetesDePython]
 python -m venv nombre_entorno
-python -m venv coffee_shop_env
+python -m venv fast_api_env
 Ejemple_1: cd pl    
 
 
