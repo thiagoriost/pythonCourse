@@ -5,20 +5,23 @@ from sqlmodel import Field, SQLModel # Importación de las clases Field y SQLMod
 
 
 # creacion de un modelo
-class CustumerBase(SQLModel): # Clase que hereda de BaseModel
+class CustomerBase(SQLModel): # Clase que hereda de BaseModel
     # id: int
     name: str = Field(default=None) # Atributo name de tipo str
     description: str | None = Field(default=None) # Atributo description de tipo str o None
     email: str = Field(default=None) # Atributo email de tipo str
     age: int = Field(default=None) # Atributo age de tipo int
 
-class Custumer(CustumerBase, table=True): # Clase que hereda de CustumerBase..
+class Customer(CustomerBase, table=True): # Clase que hereda de CustomerBase..
     id: int | None = Field(default=None, primary_key=True) # Atributo id de tipo int o None con valor por defecto None y clave primaria
 
     # class Config: # Clase Config
     #     orm_mode = True # Indica que la clase es un modelo de ORM
 
-class CusomerCreate(CustumerBase):
+class CustomerCreate(CustomerBase):
+    pass # No se añade nada nuevo a la clase
+
+class CustomerUpdate(CustomerBase):
     pass # No se añade nada nuevo a la clase
 
 class Transaction(BaseModel):
@@ -30,7 +33,7 @@ class Transaction(BaseModel):
 
 class Invoice(BaseModel):
     id: int
-    customer: Custumer
+    customer: Customer
     transaction: list[Transaction]
     total: int
 
