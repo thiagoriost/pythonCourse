@@ -1,9 +1,10 @@
 from fastapi import HTTPException
-from fastapi import status, FastAPI, Depends, HTTPException, APIRouter, Response
+from fastapi import status, HTTPException, APIRouter, Response
 from typing import List
 from sqlmodel import select
 from ..models import CustomerCreate, Customer, CustomerUpdate
-from ..db import SessionDep, create_all_tables
+from ..db import SessionDep
+# from app.db import SessionDep
 
 
 router = APIRouter() # Crea una instancia de la clase APIRouter para definir rutas agrupadas en un archivo independiente de main.py 
@@ -12,7 +13,7 @@ router = APIRouter() # Crea una instancia de la clase APIRouter para definir rut
 # Simulación de base de datos en memoria
 db: list[Customer] = []
 
-@router.post("/custumers", response_model=Customer) # Decorador que indica que la función se ejecutará cuando se haga una petición post a la ruta /custumer
+@router.post("/custumers", response_model=Customer, tags=['customers']) # Decorador que indica que la función se ejecutará cuando se haga una petición post a la ruta /custumer
 async def create_custumers(custumer: CustomerCreate, session: SessionDep): # Función que recibe un parámetro de tipo Customer
     print("custumer => ", custumer)
     # new_id = len(db) + 1
@@ -24,12 +25,12 @@ async def create_custumers(custumer: CustomerCreate, session: SessionDep): # Fun
     session.refresh(new_custumer) # Actualiza el objeto new_custumer con los datos de la base de datos 
     return new_custumer
 
-@router.get("/customers/", response_model=List[Customer])
+@router.get("/customers/", response_model=List[Customer], tags=['customers'])
 async def get_customers(session: SessionDep):
     # return db
     return session.exec(select(Customer)).all()
 
-@router.get("/customers/{customer_id}", response_model=Customer)
+@router.get("/customers/{customer_id}", response_model=Customer, tags=['customers'])
 async def get_customers_by_id(customer_id:int, session: SessionDep):
     # return db
     # return session.exec(select(Customer).where(Customer.id == customer_id)).first()
@@ -39,7 +40,7 @@ async def get_customers_by_id(customer_id:int, session: SessionDep):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Customer not found BY RRHH") # Lanza una excepción si no se encuentra el cliente
     return customer_db
 
-@router.patch("/customers/{customer_id}", response_model=Customer, status_code=status.HTTP_201_CREATED)
+@router.patch("/customers/{customer_id}", response_model=Customer, tags=['customers'], status_code=status.HTTP_201_CREATED)
 async def edit_customers_by_id(customer_id:int, session: SessionDep, customer_data: CustomerUpdate):
     
     customer_db = session.get(Customer, customer_id) # Obtiene el objeto Customer con el id customer_id, q es otra forma de hacer la consulta anterior
@@ -54,7 +55,7 @@ async def edit_customers_by_id(customer_id:int, session: SessionDep, customer_da
     return customer_db
 
 
-@router.delete("/customers/{customer_id}")
+@router.delete("/customers/{customer_id}", tags=['customers'])
 async def delete_customers_by_id(customer_id:int, session: SessionDep):
     # return db
     # return session.exec(select(Customer).where(Customer.id == customer_id)).first()
