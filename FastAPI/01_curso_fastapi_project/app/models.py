@@ -1,12 +1,19 @@
+from enum import Enum
 from fastapi import FastAPI
-from pydantic import BaseModel 
-from sqlmodel import Field, Relationship, SQLModel # Importación de las clases Field y SQLModel de SQLModel
+from pydantic import BaseModel, EmailStr, field_validator
+from sqlmodel import Field, Relationship, SQLModel, Session, select # Importación de las clases Field y SQLModel de SQLModel
+from app.db import engine # Importación del motor engine
 
+
+class StatusEnum(str, Enum): # Clase StatusEnum que hereda de Enum
+    ACTIVE = "active" # Atributo ACTIVE con valor "active"
+    INACTIVE = "inactive" # Atributo INACTIVE con valor "inactive"
 
 class CustomerPlan(SQLModel, table=True): # Clase que hereda de SQLModel
     id: int | None = Field(default=None, primary_key=True) # Atributo id de tipo int o None con valor por defecto None y clave primaria
     plan_id: int = Field(foreign_key="plan.id") # Atributo plan_id de tipo int con clave foránea a la tabla plan y campo id de la tabla plan 
     customer_id: int = Field(foreign_key="customer.id") # Atributo customer_id de tipo int con clave foránea a la tabla customer y campo id de la tabla customer
+    status: StatusEnum = Field(default=StatusEnum.ACTIVE) # Atributo status de tipo StatusEnum con valor por defecto StatusEnum.ACTIVE
 
 class Plan(SQLModel, table=True): # Clase que hereda de SQLModel
     id: int | None = Field(default=None, primary_key=True) # Atributo id de tipo int con valor por defecto None y clave primaria
@@ -25,8 +32,17 @@ class CustomerBase(SQLModel): # Clase que hereda de BaseModel
     # id: int
     name: str = Field(default=None) # Atributo name de tipo str
     description: str | None = Field(default=None) # Atributo description de tipo str o None
-    email: str = Field(default=None) # Atributo email de tipo str
+    email: EmailStr = Field(default=None) # Atributo email de tipo EmailStr con valor por defecto None 
     age: int = Field(default=None) # Atributo age de tipo int
+
+    @field_validator("email") # Decorador que indica que el método es un validador de campo
+    def validate_email(cls, value): # Método que recibe un parámetro v
+        session = Session(engine) # Crea una instancia de la clase Session con el motor engine
+        query = select(Customer).where(Customer.email == value) # Crea una consulta para obtener los clientes con el email v
+        result = session.exec(query).first() # Ejecuta la consulta y obtiene el primer resultado
+        if result: # Si result es verdadero
+            raise ValueError("Email already exists") # Lanza una excepción con el mensaje "Email already exists"
+        return value # Retorna el valor v
 
 class Customer(CustomerBase, table=True): # Clase que hereda de CustomerBase..
     id: int | None = Field(default=None, primary_key=True) # Atributo id de tipo int o None con valor por defecto None y clave primaria

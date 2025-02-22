@@ -3,13 +3,14 @@ import zoneinfo
 from datetime import datetime
 from fastapi import FastAPI
 from app.db import create_all_tables
-from app.routers import customers, transactions, invoices
+from app.routers import customers, transactions, invoices, plans
 
 
 app = FastAPI(lifespan=create_all_tables) # Crea una instancia de la clase FastAPI
 app.include_router(customers.router) # Incluye las rutas definidas en el archivo customers.py
-app.include_router(transactions.router) # Incluye las rutas definidas en el archivo customers.py
-app.include_router(invoices.router) # Incluye las rutas definidas en el archivo customers.py
+app.include_router(transactions.router)
+app.include_router(invoices.router)
+app.include_router(plans.router)
 
 @app.get("/") # Decorador que indica que la función se ejecutará cuando se haga una petición GET a la ruta raíz
 async def read_root():

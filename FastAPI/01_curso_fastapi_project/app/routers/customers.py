@@ -1,8 +1,8 @@
-from fastapi import HTTPException
+from fastapi import HTTPException, Query
 from fastapi import status, HTTPException, APIRouter, Response
 from typing import List
 from sqlmodel import select
-from ..models import CustomerCreate, Customer, CustomerUpdate
+from ..models import CustomerCreate, Customer, CustomerPlan, CustomerUpdate, Plan, StatusEnum
 from ..db import SessionDep
 # from app.db import SessionDep
 
@@ -38,6 +38,7 @@ async def get_customers_by_id(customer_id:int, session: SessionDep):
     if not customer_db:
         # return {"error": "Customer not found"} # Retorna un diccionario con un mensaje de error si no se encuentra el cliente
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Customer not found BY RRHH") # Lanza una excepción si no se encuentra el cliente
+    
     return customer_db
 
 @router.patch("/customers/{customer_id}", response_model=Customer, tags=['customers'], status_code=status.HTTP_201_CREATED)
@@ -68,3 +69,36 @@ async def delete_customers_by_id(customer_id:int, session: SessionDep):
     session.commit() # Guarda los cambios en la base de datos
 
     return {"message": "Customer deleted"} # Retorna un diccionario con un mensaje de éxito si se elimina el cliente
+
+@router.post("/customers/{customer_id}/plans/{plan_id}", tags=['customers'])
+async def add_plan_to_customer(customer_id:int, plan_id:int, session: SessionDep, plan_status:StatusEnum = Query()):
+    customer_db = session.get(Customer, customer_id) # Obtiene el objeto Customer con el id customer_id del diccionario transaction_data_dict 
+    plan_db = session.get(Plan, plan_id) # Obtiene el objeto Plan con el id plan_id del diccionario transaction_data_dict 
+    if not customer_db or not plan_db:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Customer or Plan not found")
+    customer_plan_db = CustomerPlan(plan_id=plan_db.id, customer_id=customer_db.id, status=plan_status) # Crea un objeto de la clase CustomerPlan con los ids de los objetos customer_db y plan_db 
+    session.add(customer_plan_db)
+    session.commit()
+    session.refresh(customer_plan_db)
+    return customer_plan_db
+
+@router.get("/customers/{customer_id}/plans/", tags=['customers'])
+async def subscribe_customer_to_plan(customer_id:int, session: SessionDep):
+    customer_db = session.get(Customer, customer_id) # Obtiene el objeto Customer con el id customer_id del diccionario transaction_data_dict 
+    if not customer_db:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Customer not found") 
+    return customer_db.plans
+
+@router.get("/customers/{customer_id}/plans/", tags=['customers'])
+async def actives_plan(customer_id:int, session: SessionDep, plan_status:StatusEnum = Query()):
+    customer_db = session.get(Customer, customer_id) # Obtiene el objeto Customer con el id customer_id del diccionario transaction_data_dict 
+    if not customer_db:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Customer not found") 
+    
+    query = (
+        select(CustomerPlan) # Crea una consulta para obtener los planes activos del cliente con el id customer_id del diccionario transaction_data_dict 
+        .where(CustomerPlan.customer_id == customer_id) 
+        .where(CustomerPlan.status == plan_status) 
+    ) # Crea una consulta para obtener los planes activos del cliente con el id customer_id del diccionario transaction data_dict 
+    plans = session.exec(query).all() # Obtiene los planes activos del cliente con el id customer_id del diccionario transaction_data_dict 
+    return plans

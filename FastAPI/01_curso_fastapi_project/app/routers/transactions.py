@@ -3,7 +3,7 @@ from app.models import Customer, Transaction, TransactionCreate
 from app.db import SessionDep
 
 
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, HTTPException, Query, status
 
 
 router = APIRouter() # Crea una instancia de la clase APIRouter para definir rutas agrupadas en un archivo independiente de main.py 
@@ -23,7 +23,9 @@ async def create_transactions(transaction: TransactionCreate, session: SessionDe
     return transaction_db # Retorna el objeto transaction_db
 
 @router.get("/transactions/", tags=['transactions'])
-async def get_transactions(session: SessionDep):
-    query = select(Transaction) # Crea una consulta para obtener todos los objetos de la clase Transaction de la base de datos 
+async def get_transactions(session: SessionDep, 
+                           skip: int = Query(0, description="Registros a omitir"), 
+                           limit: int = Query(10, description="Numero de registros")): # Función que recibe un parámetro de tipo SessionDep y dos parámetros opcionales de tipo int 
+    query = select(Transaction).offset(skip).limit(limit) # Crea una consulta para obtener los objetos de la clase Transaction con un límite y un offset
     transac = session.exec(query).all() # Ejecuta la consulta y obtiene todos los objetos de la clase Transaction de la base de datos 
     return transac
