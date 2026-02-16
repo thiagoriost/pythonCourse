@@ -1,0 +1,33 @@
+# Entornos virtuales
+venv/
+env/
+.env/
+
+# Cache de Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+
+# Archivos de distribución
+dist/
+build/
+*.egg-info/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Variables de entorno
+.env
+.env.local
+
+# Logs
+*.log
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/

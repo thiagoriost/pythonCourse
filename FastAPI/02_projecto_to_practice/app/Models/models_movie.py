@@ -33,10 +33,11 @@ class Model_base_Movie(BaseModel):
 class Model_MovieUpDate(Model_base_Movie):
     pass
 
-class Movie_model(Model_MovieUpDate):
+class Movie_model(Model_base_Movie):
     # id: int | None = None
     id: Optional[int] = None    
 
 class Model_Movie_Create(Model_MovieUpDate):
     id: int    
+
 

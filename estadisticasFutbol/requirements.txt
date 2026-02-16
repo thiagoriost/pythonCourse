@@ -1,0 +1,5 @@
+# Dependencias del proyecto
+# Añade aquí las librerías que necesites, por ejemplo:
+# pandas
+# requests
+# matplotlib
